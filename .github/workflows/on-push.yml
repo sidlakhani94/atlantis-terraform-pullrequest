@@ -42,13 +42,20 @@ jobs:
       - name: Lint Terraform files
         run: tflint
 
-  pull-request-review:
-    name: 'pull-request-review'
+  createPullRequest:
+    name: 'createPullRequest'
     runs-on: ubuntu-latest
-
     steps:
-      - name: Add Pull Request Reviewer
-        uses: AveryCameronUofR/add-reviewer-gh-action@1.0.3
-        with: 
-          reviewers: "sidlakhani94"
+      - uses: actions/checkout@v3
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v5
+        with:
           token: ${{ secrets.PAT }}
+          signoff: false
+          branch: dev
+          delete-branch: false
+          title: 'Pull Request'
+          body: Pull Request
+          assignees: sidlakhani94
+          reviewers: sidlakhani94
