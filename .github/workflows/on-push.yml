@@ -44,7 +44,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/github-script@v2
         with:
           script: |
             const github = require('@actions/github');
