@@ -53,7 +53,7 @@ jobs:
           branch: "main"
           title: "Create pull request to review"
           body: "Create pull request to review"
-          reviewers: sidlakhani94
+          reviewers: "sidlakhani94"
 
   # plan:
   #   name: 'Plan'
