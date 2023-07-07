@@ -2,7 +2,7 @@ name: 'Terraform Deployment'
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "main" ]
   pull_request:
 
 permissions:
@@ -50,7 +50,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.PAT }}
-          branch: "main"
+          branch: "dev"
           title: "Create pull request to review"
           body: "Create pull request to review"
           reviewers: "sidlakhani94"
