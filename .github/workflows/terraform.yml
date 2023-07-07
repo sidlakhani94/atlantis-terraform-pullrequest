@@ -50,7 +50,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.PAT }}
-          branch: "dev"
+          branch: "main"
           title: "Create pull request to review"
           body: "Create pull request to review"
 
