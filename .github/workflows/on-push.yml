@@ -37,3 +37,24 @@ jobs:
         run: tflint --init
       - name: Lint Terraform files
         run: tflint
+
+  create-pull-request:
+    name: 'create-pull-request'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/github-script@v2
+        with:
+          script: |
+            const github = require('@actions/github');
+
+            const prTitle = 'New feature';
+            const prBody = 'This pull request adds a new feature.';
+
+            github.pulls.create({
+              title: prTitle,
+              body: prBody,
+              head: 'dev',
+              base: 'main',
+            });
