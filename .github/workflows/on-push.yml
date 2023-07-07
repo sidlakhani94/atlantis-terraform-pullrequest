@@ -38,22 +38,13 @@ jobs:
       - name: Lint Terraform files
         run: tflint
 
-  create-pull-request:
-    name: 'create-pull-request'
+  pull-request-review:
+    name: 'pull-request-review'
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          script: |
-            const github = require('@actions/github');
-
-            const prTitle = 'New feature';
-            const prBody = 'This pull request adds a new feature.';
-
-            github.pulls.create({
-              title: prTitle,
-              body: prBody,
-              head: 'dev',
-              base: 'main',
-            });
+    - name: Add Pull Request Reviewer
+          uses: AveryCameronUofR/add-reviewer-gh-action@1.0.3
+          with: 
+            reviewers: "sidlakhani94"
+            token: ${{ secrets.PAT }}
