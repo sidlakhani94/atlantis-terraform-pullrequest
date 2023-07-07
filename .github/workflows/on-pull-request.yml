@@ -1,0 +1,17 @@
+name: Add Reviewers
+
+on:
+  pull_request:
+    branches: [ "dev" ]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Add Reviewers
+      uses: madrapps/add-reviewers@v1
+      with:
+        token: ${{ secrets.PAT }}
+        reviewers: sidlakhani94
+        re-request-when-approved: true
+        re-request-when-changes-requested: true
