@@ -40,6 +40,45 @@ jobs:
         run: tflint
         
 ## pull steps    
+  list_branches:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: List Branches
+        id: list_branches
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.PAT }}
+          script: |
+            const { data: branches } = await github.repos.listBranches({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            const branchNames = branches.map(branch => branch.name);
+            console.log(branchNames.join('\n'));
+
+  git_command:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Switch to a Different Branch
+        run: |
+          git checkout dev
+
+      - name: Execute Git Command
+        run: |
+          # Run your Git commands here
+          # git status
+          # git log
+          git branch -a
+          # Additional Git commands...            
+
   create_pull_request:
     runs-on: ubuntu-latest
 
@@ -51,5 +90,4 @@ jobs:
           git branch -a
           git checkout dev
           git merge test -m "Merge pull request"
-
       
