@@ -62,6 +62,9 @@ jobs:
           branch: dev
           title: 'Pull Request Title'
           body: 'Pull Request Body'
+          assignees: er-jaydeep-gohel
+          reviewers: er-jaydeep-gohel
+          milestone: 1
 
 
 
