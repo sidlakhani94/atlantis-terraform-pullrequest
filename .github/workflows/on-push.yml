@@ -40,31 +40,36 @@ jobs:
         run: tflint
         
 ## pull steps    
-  git_command:
+  createPullRequest:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        # with:
-        #   ref: dev
+      - uses: actions/checkout@v3
 
-      - name: List Branches
-        run: |
-          git fetch --prune --tags
-          git branch --all
+      - name: Make changes to pull request
+        run: date +%s > report.txt
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+        id: cpr
+        uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.PAT }}
-          commit-message: 'Create pull request'
+          commit-message: Update report
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          signoff: false
           branch: dev
-          title: 'Pull Request Title'
-          body: 'Pull Request Body'
+          delete-branch: true
+          title: '[Example] Update report'
+          body: |
+            Update report
+            - Updated with test
+          labels: |
+            report
+            automated pr
           assignees: er-jaydeep-gohel
           reviewers: sidlakhani94
           milestone: 1
+          draft: false
 
 
 
