@@ -66,10 +66,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Switch to a Different Branch
-        run: |
-          git checkout dev
+        with:
+          ref: dev
 
       - name: Execute Git Command
         run: |
