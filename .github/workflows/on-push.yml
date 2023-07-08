@@ -50,9 +50,9 @@ jobs:
         run: |
           git config --global user.name "sidlakhani94"
           git config --global user.email "lakhanisiddharth_007@yahoo.co.in"
-          git checkout -b pull-request-branch
+          git checkout -b ${BRANCH_NAME}
           git commit -m "Pull Request Title" -m "Pull Request Body"
-          git push origin pull-request-branch
+          git push origin ${BRANCH_NAME}
 
       - name: Request Reviews
         uses: peter-evans/request-changes@v1
@@ -89,9 +89,9 @@ jobs:
           git config --global user.name "sidlakhani94"
           git config --global user.email "lakhanisiddharth_007@yahoo.co.in"
           git fetch origin pull/${{ github.event.pull_request.number }}/merge:pr-merge
-          git checkout pr-merge
-          git merge --no-ff pull-request-branch -m "Merge pull request"
-          git push origin pr-merge
+          git checkout main
+          git merge --no-ff ${BRANCH_NAME} -m "Merge pull request"
+          git push origin main
 
       - name: Complete Pull Request
         uses: peter-evans/complete-pull-request@v1
