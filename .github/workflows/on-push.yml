@@ -67,5 +67,5 @@ jobs:
             report
             automated pr
           # assignees: er-jaydeep-gohel
-          reviewers: sidlakhani94
+          # reviewers: sidlakhani94
           draft: false
