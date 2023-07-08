@@ -78,6 +78,11 @@ jobs:
           git merge test
           # Additional Git commands...            
 
+      - name: List Branches
+        run: |
+          git fetch --prune --tags
+          git branch --all
+          
   # create_pull_request:
   #   runs-on: ubuntu-latest
 
