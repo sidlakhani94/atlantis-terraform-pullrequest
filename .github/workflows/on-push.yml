@@ -40,32 +40,78 @@ jobs:
         run: tflint
         
 ## pull steps    
-  createPullRequest:
+  create_pull_request:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
 
-      - name: Make changes to pull request
-        run: date +%s > report.txt
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Create Pull Request
         id: cpr
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.PAT }}
-          commit-message: Update report
-          committer: GitHub <noreply@github.com>
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          signoff: false
-          base: test
+          commit-message: 'Create pull request'
           branch: dev
-          delete-branch: true
-          title: 'Update report'
-          body: |
-            testing
-          labels: |
-            report
-            automated pr
-          assignees: sidlakhani94
-          reviewers: sidlakhani94
-          draft: false
+          title: 'Pull Request Title'
+          body: 'Pull Request Body'
+
+  pull_request_approval:
+    needs: create_pull_request
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Request Review
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: 'Please review this pull request'
+          token: ${{ secrets.PAT }}
+          pull-request-number: ${{ needs.create_pull_request.outputs.pull-request-number }}
+
+  wait_for_approval:
+    needs: pull_request_approval
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Wait for Approval
+        id: approval
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.PAT }}
+          script: |
+            const { owner, repo, number } = context.issue;
+            const { data: reviews } = await github.pulls.listReviews({ owner, repo, pull_number: number });
+            const approved = reviews.some(review => review.state === 'APPROVED');
+            if (approved) {
+              console.log('Pull request approved.');
+              process.exit(0);
+            } else {
+              console.log('Waiting for pull request approval...');
+              process.exit(1);
+            }
+
+  merge_pull_request:
+    needs: wait_for_approval
+    runs-on: ubuntu-latest
+    if: ${{ needs.wait_for_approval.outputs.approval == 'true' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Merge Pull Request
+        run: |
+          git config --global user.name "Your Name"
+          git config --global user.email "your-email@example.com"
+          git fetch origin pull/${{ needs.create_pull_request.outputs.pull-request-number }}/merge:pr-merge
+          git checkout pr-merge
+          git merge --no-ff test -m "Merge pull request"
+          git push origin pr-merge
+
+      - name: Complete Pull Request
+        uses: peter-evans/complete-pull-request@v1
+        with:
+          pull-request-number: ${{ needs.create_pull_request.outputs.pull-request-number }}
+          completion: success
+          token: ${{ secrets.PAT }}
