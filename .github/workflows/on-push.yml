@@ -51,7 +51,7 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
           commit-message: 'Create pull request'
           branch: dev
           title: 'Pull Request Title'
@@ -61,5 +61,5 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           message: 'Please review this pull request'
-          token: ${{ secrets.GITHUB_TOKEN }}
-          pull-request-number: ${{ steps.cpr.outputs.pull-request-number 
+          token: ${{ secrets.PAT }}
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
