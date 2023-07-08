@@ -62,7 +62,7 @@ jobs:
 
     steps:
       - name: Request Review
-        uses: marocchino/sticky-pull-request-comment@v5
+        uses: marocchino/sticky-pull-request-comment@v2
         with:
           message: 'Please review this pull request'
           token: ${{ secrets.PAT }}
