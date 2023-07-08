@@ -57,14 +57,15 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          branch: main
+          base: main
+          branch: dev
           delete-branch: true
-          title: '[Example] Update report'
+          title: 'Update report'
           body: |
             testing
           labels: |
             report
             automated pr
           assignees: er-jaydeep-gohel
-          # reviewers: sidlakhani94
+          reviewers: sidlakhani94
           draft: false
