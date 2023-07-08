@@ -12,6 +12,7 @@ resource "aws_security_group" "my-sg" {
     ipv6_cidr_blocks = ["::/0"]
   }
 
+
   egress {
     from_port        = 0
     to_port          = 0
