@@ -54,7 +54,7 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           commit-message: Update report
-          committer: GitHub <noreply@github.com>
+          committer: er-jaydeep-gohel <er.jaydeep@gmail.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: true
           branch: dev
