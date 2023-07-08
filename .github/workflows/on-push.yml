@@ -66,6 +66,6 @@ jobs:
           labels: |
             report
             automated pr
-          assignees: er-jaydeep-gohel
-          reviewers: sidlakhani94
+          # assignees: er-jaydeep-gohel
+          # reviewers: sidlakhani94
           draft: false
