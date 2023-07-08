@@ -45,8 +45,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v5       
         with:
+          committer: er-jaydeep-gohel <er.jaydeepgohel@gmailcom> 
+          base: test
+          branch: dev
           commit-message: Add report file
           title: '[Test] Add report file'
           body: >
