@@ -44,16 +44,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Create Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v5
+      - name: "Execute Script"
         with:
-          token: ${{ secrets.PAT }}
-          commit-message: 'Create pull request'
-          branch: dev
-          title: 'Pull Request Title'
-          body: |
-            'Pull Request Body'
+          script: |
+            git branch -a
+      
