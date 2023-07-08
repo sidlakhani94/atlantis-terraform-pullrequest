@@ -45,8 +45,11 @@ jobs:
 
     steps:
       - name: Execute Script
-        uses: actions/github-script@v6
-        with:
-          script: |
-            git branch -a
+        uses: actions/checkout@v3
+      - name: Merge Pull Request
+        run: |
+          git branch -a
+          git checkout dev
+          git merge test -m "Merge pull request"
+
       
