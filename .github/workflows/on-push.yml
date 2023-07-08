@@ -68,7 +68,6 @@ jobs:
             automated pr
           assignees: er-jaydeep-gohel
           reviewers: sidlakhani94
-          milestone: 1
           draft: false
 
 
