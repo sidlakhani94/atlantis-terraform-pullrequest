@@ -63,7 +63,7 @@ jobs:
           title: 'Pull Request Title'
           body: 'Pull Request Body'
           assignees: er-jaydeep-gohel
-          reviewers: er-jaydeep-gohel
+          reviewers: sidlakhani94
           milestone: 1
 
 
