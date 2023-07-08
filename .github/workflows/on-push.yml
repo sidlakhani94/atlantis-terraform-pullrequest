@@ -39,7 +39,7 @@ jobs:
       - name: Lint Terraform files
         run: tflint
         
-## pull steps    
+## pull Request steps    
   create_pull_request:
     runs-on: ubuntu-latest
 
@@ -88,7 +88,7 @@ jobs:
               process.exit(0);
             } else {
               console.log('Waiting for pull request approval...');
-              process.exit(0);
+              process.exit(1);
             }
 
   merge_pull_request:
