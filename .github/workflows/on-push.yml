@@ -75,17 +75,18 @@ jobs:
           # git status
           # git log
           git branch -a
+          git merge test
           # Additional Git commands...            
 
-  create_pull_request:
-    runs-on: ubuntu-latest
+  # create_pull_request:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Execute Script
-        uses: actions/checkout@v3
-      - name: Merge Pull Request
-        run: |
-          git branch -a
-          git checkout dev
-          git merge test -m "Merge pull request"
+  #   steps:
+  #     - name: Execute Script
+  #       uses: actions/checkout@v3
+  #     - name: Merge Pull Request
+  #       run: |
+  #         git branch -a
+  #         git checkout dev
+  #         git merge test -m "Merge pull request"
       
