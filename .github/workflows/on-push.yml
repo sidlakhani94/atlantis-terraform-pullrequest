@@ -3,7 +3,7 @@ name: 'Terraform Deployment'
 on:
   push:
     branches:
-      - main
+      - dev
   pull_request:
 
 permissions:
@@ -50,9 +50,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.PAT }}
-          signoff: false
           branch: dev
-          delete-branch: false
           title: 'Pull Request'
           body: Pull Request
           assignees: sidlakhani94
