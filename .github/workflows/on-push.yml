@@ -57,7 +57,7 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          branch: ${BRANCH_NAME}
+          branch: dev
           delete-branch: true
           title: '[Example] Update report'
           body: |
@@ -65,6 +65,6 @@ jobs:
           labels: |
             report
             automated pr
-          assignees: sidlakhani94
+          assignees: er-jaydeep-gohel
           reviewers: sidlakhani94
           draft: false
