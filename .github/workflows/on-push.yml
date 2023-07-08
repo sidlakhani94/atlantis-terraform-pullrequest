@@ -57,8 +57,8 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          base: main
-          branch: dev
+          base: dev
+          branch: main
           delete-branch: true
           title: 'Update report'
           body: |
