@@ -44,7 +44,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: "Execute Script"
+      - name: Execute Script
+        uses: actions/github-script@v6
         with:
           script: |
             git branch -a
