@@ -39,63 +39,27 @@ jobs:
       - name: Lint Terraform files
         run: tflint
         
-  pull-request-create:
+  create-pull-request:
+    name: 'create-pull-request'
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Create Pull Request
-        run: |
-          git config --global user.name "sidlakhani94"
-          git config --global user.email "lakhanisiddharth_007@yahoo.co.in"
-          git checkout -b ${BRANCH_NAME}
-          git commit -m "Pull Request Title" -m "Pull Request Body"
-          git push origin ${BRANCH_NAME}
-
-      - name: Request Reviews
-        uses: peter-evans/request-changes@v1
+        id: cpr
+        uses: peter-evans/create-pull-request@v5
         with:
-          reviewers: sidlakhani94
           token: ${{ secrets.PAT }}
+          commit-message: 'Create pull request'
+          branch: main
+          title: 'Pull Request Title'
+          body: 'Pull Request Body'
 
-      - name: Wait for Reviews
-        uses: actions/github-script@v4
+      - name: Request Review
+        uses: marocchino/sticky-pull-request-comment@v2
         with:
-          github-token: ${{ secrets.PAT }}
-          script: |
-            const { owner, repo, number } = context.issue;
-            const pr = await github.pulls.get({ owner, repo, pull_number: number });
-            if (pr.data.requested_reviewers.length === 0) {
-              console.log("All reviews have been completed.");
-              process.exit(0);
-            } else {
-              console.log("Waiting for all reviews to be completed...");
-              process.exit(1);
-            }
-
-  merge:
-    needs: pull-request-create
-    runs-on: ubuntu-latest
-    if: ${{ needs.build.outputs.review_completed == 'true' }}
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Merge Pull Request
-        run: |
-          git config --global user.name "sidlakhani94"
-          git config --global user.email "lakhanisiddharth_007@yahoo.co.in"
-          git fetch origin pull/${{ github.event.pull_request.number }}/merge:main
-          git checkout main
-          git merge --no-ff ${BRANCH_NAME} -m "Merge pull request"
-          git push origin main
-
-      - name: Complete Pull Request
-        uses: peter-evans/complete-pull-request@v1
-        with:
-          pull-request-number: ${{ github.event.pull_request.number }}
-          completion: success
+          message: 'Please review this pull request'
           token: ${{ secrets.PAT }}
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
