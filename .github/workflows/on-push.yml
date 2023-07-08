@@ -3,7 +3,7 @@ name: 'Terraform Deployment'
 on:
   push:
     branches:
-      - dev
+      - test
 
 permissions:
   contents: read
