@@ -40,31 +40,20 @@ jobs:
         run: tflint
         
 ## pull steps    
-  createPullRequest:
+  create_pr:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Make changes to pull request
-        run: date +%s > report.txt
+      - name: Install `gh`
+        run: |    
+          apt update
+          apt install gh -y
 
-      - name: Create Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.PAT_2 }}
-          commit-message: Update report
-          committer: GitHub <noreply@github.com>
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          signoff: false
-          branch: main
-          delete-branch: true
-          title: '[Example] Update report'
-          body: |
-            testing
-          labels: |
-            report
-            automated pr
-          assignees: er-jaydeep-gohel
-          reviewers: sidlakhani94
-          draft: false
+      - name: Create PR
+        run: |
+          gh auth login --with-token {{ secrets.PAT_2 }}
+          gh pr create --title "Merging dev to main test 001" --body "FIXING ISSUES" --base main --head dev
+            
