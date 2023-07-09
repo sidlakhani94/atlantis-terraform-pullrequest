@@ -45,7 +45,8 @@ jobs:
     steps:
       - name: Install GH
         run: |
-          npm install gh -g
+          sudo apt-get update
+          sudo apt-get install gh -y
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Create Pull Request
