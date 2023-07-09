@@ -43,11 +43,13 @@ jobs:
   create-pull-request:
     runs-on: ubuntu-latest
     steps:
+      - name: Install GH
+        run: |
+          npm install gh -g
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Create Pull Request
         run: |
-            npm install gh -g
             gh auth login --with-token ${{ secrets.PAT_2 }}
             gh pr create --title "Merging dev to main test 001" --body "FIXING ISSUES" --base main --head dev
             
