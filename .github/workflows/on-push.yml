@@ -46,7 +46,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Create Pull Request
-        run: |
-            gh auth login --with-token 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
-            gh pr create --title "Merging dev to main test 001" --body "FIXING ISSUES" --base main --head dev
+        run: gh pr create --title "Merging dev to main test 001" --body "FIXING ISSUES" --base main --head dev
+        env:
+          GH_TOKEN: ${{ secrets.PAT_2 }}
             
