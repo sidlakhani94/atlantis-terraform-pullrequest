@@ -47,10 +47,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install `gh`
-        run: |    
-          apt update
-          apt install gh -y
+      - name: Install GH CLI
+        uses: dev-hanz-ops/install-gh-cli-action
+        with:
+          gh-cli-version: 2.14.2
 
       - name: Create PR
         run: |
