@@ -46,7 +46,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Create Pull Request
-        run: gh pr create --title "Merging dev to main test 001" --body "FIXING ISSUES" --base main --head dev
-        env:
-          GH_TOKEN: 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
+        run: |
+          echo ${{ secrets.PAT_2 }} | gh auth login --with-token
+          gh api -X GET /repos/${{ GITHUB.REPOSITORY }}/topics --jq='.names'
             
