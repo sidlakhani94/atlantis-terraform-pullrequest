@@ -48,6 +48,6 @@ jobs:
       - name: Create Pull Request
         run: gh pr create --title "Merging dev to main test 001" --body "FIXING ISSUES" --base main --head dev
         env:
-          GH_TOKEN: ${{ secrets.PAT_2 }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN_SCOPES: repo
             
