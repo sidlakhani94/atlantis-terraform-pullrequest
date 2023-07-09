@@ -40,20 +40,13 @@ jobs:
         run: tflint
         
 ## pull steps    
-  create_pr:
+  create-pull-request:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install GH CLI
-        uses: dev-hanz-ops/install-gh-cli-action
-        with:
-          gh-cli-version: 2.14.2
-
-      - name: Create PR
+      - name: Setup GH
+        uses: actions/setup-gh@v2
+      - name: Create Pull Request
         run: |
-          gh auth login --with-token {{ secrets.PAT_2 }}
-          gh pr create --title "Merging dev to main test 001" --body "FIXING ISSUES" --base main --head dev
+            npm install gh -g
+            gh pr create --title "Merging dev to main test 001" --body "FIXING ISSUES" --base main --head dev
             
