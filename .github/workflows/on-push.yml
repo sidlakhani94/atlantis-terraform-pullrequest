@@ -56,8 +56,8 @@ jobs:
       - name: Determine changed files
         id: changes
         run: |
-          changed_files=$(git diff --name-only ${GITHUB_HEAD_REF} )
-          echo ${GITHUB_HEAD_REF}
+          changed_files=$(git diff --name-only "$GITHUB_SHA" )
+          echo "$GITHUB_SHA"
           echo "Changed files: $changed_files"
 ## pull steps    
   create-pull-request:
