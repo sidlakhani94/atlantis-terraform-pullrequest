@@ -57,6 +57,7 @@ jobs:
         id: changes
         run: |
           changed_files=$(git diff --name-only $GITHUB_HEAD_REF )
+          echo $GITHUB_HEAD_REF
           echo "Changed files: $changed_files"
 ## pull steps    
   create-pull-request:
