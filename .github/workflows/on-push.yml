@@ -39,6 +39,25 @@ jobs:
       - name: Lint Terraform files
         run: tflint
         
+    
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Determine base branch
+        id: base_branch
+        run: |
+          echo "::set-output name=base_branch_sha::$(curl -s https://api.github.com/repos/${{ github.repository }}/branches/main | jq -r '.commit.sha')"
+
+      - name: Determine changed files
+        id: changes
+        run: |
+          changed_files=$(git diff --name-only ${{ steps.base_branch.outputs.base_branch_sha }}...$GITHUB_HEAD_REF)
+          echo "Changed files: $changed_files"
 ## pull steps    
   create-pull-request:
     runs-on: ubuntu-latest
