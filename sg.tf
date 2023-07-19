@@ -24,3 +24,5 @@ resource "aws_security_group" "my-sg" {
     Name = "allow_ssh"
   }
 }
+
+#my new run test
