@@ -56,7 +56,7 @@ jobs:
       - name: Determine changed files
         id: changes
         run: |
-          changed_files=$(git diff --name-only ${{ steps.base_branch.outputs.base_branch_sha }} )
+          changed_files=$(git diff --name-only main )
           echo "Changed files: $changed_files"
 ## pull steps    
   create-pull-request:
