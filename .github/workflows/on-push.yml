@@ -52,12 +52,16 @@ jobs:
         id: base_branch
         run: |
           echo "::set-output name=base_branch_sha::$(curl -s https://api.github.com/repos/${{ github.repository }}/branches/main | jq -r '.commit.sha')"
+   
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v37
 
       - name: Determine changed files
         id: changes
         run: |
           changed_files=$(git diff --name-only "$GITHUB_SHA" )
-          echo "$GITHUB_SHA"
+          echo ${{ steps.changed-files.outputs.all_changed_files }}
           echo "Changed files: $changed_files"
 ## pull steps    
   create-pull-request:
